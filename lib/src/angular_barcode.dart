@@ -7,31 +7,11 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:dart_barcode/dart_barcode.dart';
 
-const List<String> _inputs = [
-  "value",
-  "format",
-  "displayValue",
-  "fontOptions",
-  "width",
-  "height",
-  "fontSize",
-  "font",
-  "textAlign",
-  "lineColor",
-  "background",
-  "text",
-  "textPosition",
-  "textMargin",
-  "margin",
-  "marginTop",
-  "marginRight",
-  "marginLeft",
-];
-
-@Component(selector: "angular-barcode", template: '''
-<svg #barcode></svg>
-''')
-class AngularBarcode implements OnChanges {
+@Component(
+  selector: "angular-barcode",
+  template: '<svg #barcode></svg>',
+)
+class AngularBarcode implements AfterChanges {
   @Input()
   String value;
 
@@ -120,9 +100,7 @@ class AngularBarcode implements OnChanges {
   }
 
   @override
-  ngOnChanges(Map<String, SimpleChange> changes) {
-    if (changes.keys.any((String k) => _inputs.contains(k))) {
-      _refresh();
-    }
+  void ngAfterChanges() {
+    _refresh();
   }
 }
